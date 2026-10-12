@@ -1,0 +1,17 @@
+image: mcr.microsoft.com/windows/servercore:ltsc2019
+
+stages:
+  - build
+
+build-wand-enhancer:
+  stage: build
+  before_script:
+    - choco install git nodejs-lts pnpm visualstudio2022-buildtools --confirm
+  script:
+    - git submodule update --init --recursive
+    - .\build.cmd
+  artifacts:
+    paths:
+      - dist/
+  only:
+    - master
